@@ -13,13 +13,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('biidl1 ');
+    print('Build before provider ');
     final splashprovider=Provider.of<SplashProvider>(context);
 
-    print('build 2 ');
+
     if (!splashprovider.showButton) {
       splashprovider.showafterdelay();
     }
+
 
     dynamic size = MediaQuery.of(context).size;
     dynamic width = size.width;
@@ -57,27 +58,36 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: width * 0.035, fontWeight: FontWeight.w400),
                 ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Consumer<SplashProvider>(builder: (context,splashProvider,_){
+                  const Duration(milliseconds: 300);
+                  print("Build  Button Widget");
 
-                Consumer<SplashProvider>(builder: (context,_ ,__){
 
-                  print('biidl3 ');
                   return  splashprovider.showButton
                       ? ButtonWidget(textmessage: 'Get Started', onTap: () {
-                    print('biidl4 ');
-                    Navigator.pushNamed(context, RouteName.splashscreen);
+
+                    Navigator.pushNamed(context, RouteName.homeScreen);
 
 
                   })
                       : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: LinearProgressIndicator(
+                      minHeight: 5,
+
                       color: Colors.deepOrangeAccent.shade100,
                     ),
                   );
 
 
 
-                }),
+                },
+
+
+                ),
 
 
 
